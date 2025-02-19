@@ -32,3 +32,11 @@ The attacker exploits a race condition to force the kernel to write to protected
 The Dirty COW exploit allows a local attacker to modify sensitive system files by exploiting a vulnerability in the Linux kernel's Copy-On-Write mechanism. The fix was released in 2016, but until the system is updated, it remains vulnerable to elevation of privileges.
 
 ### Exploit on the machine
+
+Exploit link: https://github.com/firefart/dirtycow
+
+![screenshot](screen1/passwd.png)
+
+![screenshot](screen1/exploitDirtycow.png)
+
+# ROOT
