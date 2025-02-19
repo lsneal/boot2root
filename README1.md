@@ -39,4 +39,3 @@ Exploit link: https://github.com/firefart/dirtycow
 
 ![screenshot](screen1/exploitDirtycow.png)
 
-# ROOT

