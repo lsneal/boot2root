@@ -233,3 +233,123 @@ Password: 330b845f32185747e4f8ca15d40ca59796035c89ea809fb5d30f4da83ecf45a4
 #### We are connected in ssh with laurie
 
 ![screenshot](screen/laurieconnected.png)
+
+### New challenge (reverse engineering)
+
+![screenshot](screen/bombls.png)
+
+#### Here's the main in assembler using the objdump command
+
+We can see that the executable is a bomb that we need to deactivate in 6 phases.
+
+```asm
+main:
+    push   ebp
+    mov    ebp,esp
+    sub    esp,0x14
+    push   ebx
+    mov    eax,DWORD PTR [ebp+0x8]
+    mov    ebx,DWORD PTR [ebp+0xc]
+    cmp    eax,0x1
+    jne    main+0x20
+    mov    eax,ds:0x804b648
+    mov    ds:0x804b664,eax
+    jmp    main+0x80
+    mov    esi,esi
+    cmp    eax,0x2
+    jne    main+0x60
+    add    esp,0xfffffff8
+    push   0x8049620
+    mov    eax,DWORD PTR [ebx+0x4]
+    push   eax
+    call   fopen@plt
+    mov    ds:0x804b664,eax
+    add    esp,0x10
+    test   eax,eax
+    jne    main+0x80
+    add    esp,0xfffffffc
+    mov    eax,DWORD PTR [ebx+0x4]
+    push   eax
+    mov    eax,DWORD PTR [ebx]
+    push   eax
+    push   0x8049622
+    call   printf@plt
+    add    esp,0xfffffff4
+    push   0x8
+    call   exit@plt
+    add    esp,0xfffffff8
+    mov    eax,DWORD PTR [ebx]
+    push   eax
+    push   0x804963f
+    call   printf@plt
+    add    esp,0xfffffff4
+    push   0x8
+    call   exit@plt
+    lea    esi,[esi+0x0]
+    call   initialize_bomb
+    add    esp,0xfffffff4
+    push   0x8049660
+    call   printf@plt
+    add    esp,0xfffffff4
+    push   0x80496a0
+    call   printf@plt
+    add    esp,0x20
+    call   read_line
+    add    esp,0xfffffff4
+    push   eax
+    call   phase_1
+    call   phase_defused
+    add    esp,0xfffffff4
+    push   0x80496e0
+    call   printf@plt
+    add    esp,0x20
+    call   read_line
+    add    esp,0xfffffff4
+    push   eax
+    call   phase_2
+    call   phase_defused
+    add    esp,0xfffffff4
+    push   0x8049720
+    call   printf@plt
+    add    esp,0x20
+    call   read_line
+    add    esp,0xfffffff4
+    push   eax
+    call   phase_3
+    call   phase_defused
+    add    esp,0xfffffff4
+    push   0x804973f
+    call   printf@plt
+    add    esp,0x20
+    call   read_line
+    add    esp,0xfffffff4
+    push   eax
+    call   phase_4
+    call   phase_defused
+    add    esp,0xfffffff4
+    push   0x8049760
+    call   printf@plt
+    add    esp,0x20
+    call   read_line
+    add    esp,0xfffffff4
+    push   eax
+    call   phase_5
+    call   phase_defused
+    add    esp,0xfffffff4
+    push   0x80497a0
+    call   printf@plt
+    add    esp,0x20
+    call   read_line
+    add    esp,0xfffffff4
+    push   eax
+    call   phase_6
+    call   phase_defused
+    xor    eax,eax
+    mov    ebx,DWORD PTR [ebp-0x18]
+    mov    esp,ebp
+    pop    ebp
+    ret
+    nop
+    nop
+    nop
+```
