@@ -353,3 +353,190 @@ main:
     nop
     nop
 ```
+
+#### We'll use ghidra
+
+Ghidra: https://ghidra-sre.org/
+
+Phase 1 
+![screenshot](screen/phase1.png)
+
+```
+Phase 1 password:
+```
+
+Phase 2
+![screenshot](screen/phase2.png)
+Function read_six_numbers
+```c
+void read_six_numbers(char *param_1,int param_2)
+{
+  int iVar1;
+  
+  iVar1 = sscanf(param_1,"%d %d %d %d %d %d",param_2,param_2 + 4,param_2 + 8,param_2 + 0xc,
+                 param_2 + 0x10,param_2 + 0x14);
+  if (iVar1 < 6) {
+    explode_bomb();
+  }
+  return;
+}
+```
+```
+Phase 2 password: 
+```
+
+Phase 3
+```C
+void phase_3(char *param_1)
+
+{
+  int iVar1;
+  char cVar2;
+  uint local_10;
+  char local_9;
+  int local_8;
+  
+  iVar1 = sscanf(param_1,"%d %c %d",&local_10,&local_9,&local_8);
+  if (iVar1 < 3) {
+    explode_bomb();
+  }
+  switch(local_10) {
+  case 0:
+    cVar2 = 'q';
+    if (local_8 != 0x309) {
+      explode_bomb();
+    }
+    break;
+  case 1:
+    cVar2 = 'b';
+    if (local_8 != 0xd6) {
+      explode_bomb();
+    }
+    break;
+  case 2:
+    cVar2 = 'b';
+    if (local_8 != 0x2f3) {
+      explode_bomb();
+    }
+    break;
+  case 3:
+    cVar2 = 'k';
+    if (local_8 != 0xfb) {
+      explode_bomb();
+    }
+    break;
+  case 4:
+    cVar2 = 'o';
+    if (local_8 != 0xa0) {
+      explode_bomb();
+    }
+    break;
+  case 5:
+    cVar2 = 't';
+    if (local_8 != 0x1ca) {
+      explode_bomb();
+    }
+    break;
+  case 6:
+    cVar2 = 'v';
+    if (local_8 != 0x30c) {
+      explode_bomb();
+    }
+    break;
+  case 7:
+    cVar2 = 'b';
+    if (local_8 != 0x20c) {
+      explode_bomb();
+    }
+    break;
+  default:
+    cVar2 = 'x';
+    explode_bomb();
+  }
+  if (cVar2 != local_9) {
+    explode_bomb();
+  }
+  return;
+}
+```
+```
+Phase 3 password:
+```
+
+Phase 4
+![screenshot](screen/phase4.png)
+```
+Phase 4 password:
+```
+
+Phase 5
+![screenshot](screen/phase5.png)
+```
+Phase 5 password: 
+```
+
+Phase 6
+```C
+void phase_6(undefined4 param_1)
+
+{
+  int *piVar1;
+  int iVar2;
+  int *piVar3;
+  int iVar4;
+  undefined1 *local_38;
+  int *local_34 [6];
+  int local_1c [6];
+  
+  local_38 = node1;
+  read_six_numbers(param_1,local_1c);
+  iVar4 = 0;
+  do {
+    iVar2 = iVar4;
+    if (5 < local_1c[iVar4] - 1U) {
+      explode_bomb();
+    }
+    while (iVar2 = iVar2 + 1, iVar2 < 6) {
+      if (local_1c[iVar4] == local_1c[iVar2]) {
+        explode_bomb();
+      }
+    }
+    iVar4 = iVar4 + 1;
+  } while (iVar4 < 6);
+  iVar4 = 0;
+  do {
+    iVar2 = 1;
+    piVar3 = (int *)local_38;
+    if (1 < local_1c[iVar4]) {
+      do {
+        piVar3 = (int *)piVar3[2];
+        iVar2 = iVar2 + 1;
+      } while (iVar2 < local_1c[iVar4]);
+    }
+    local_34[iVar4] = piVar3;
+    iVar4 = iVar4 + 1;
+  } while (iVar4 < 6);
+  iVar4 = 1;
+  piVar3 = local_34[0];
+  do {
+    piVar1 = local_34[iVar4];
+    piVar3[2] = (int)piVar1;
+    iVar4 = iVar4 + 1;
+    piVar3 = piVar1;
+  } while (iVar4 < 6);
+  piVar1[2] = 0;
+  iVar4 = 0;
+  do {
+    if (*local_34[0] < *(int *)local_34[0][2]) {
+      explode_bomb();
+    }
+    local_34[0] = (int *)local_34[0][2];
+    iVar4 = iVar4 + 1;
+  } while (iVar4 < 5);
+  return;
+}
+```
+
+```
+Phase 6 password:
+```
